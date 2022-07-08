@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DailyActivity.iml" filepath="$PROJECT_DIR$/DailyActivity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/go_attendance_api.iml" filepath="$PROJECT_DIR$/go_attendance_api.iml" />
     </modules>
   </component>
 </project>
