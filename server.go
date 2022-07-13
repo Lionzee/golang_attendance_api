@@ -30,6 +30,11 @@ func main() {
 	defer config.CloseDatabaseConnection(db)
 	r := gin.Default()
 
+	healthRoutes := r.Group("api/auth")
+	{
+		healthRoutes.GET("/healthcheck", authController.Check)
+	}
+
 	authRoutes := r.Group("api/auth")
 	{
 		authRoutes.POST("/login", authController.Login)
