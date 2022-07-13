@@ -35,6 +35,11 @@ func (db *userConnection) InsertUser(user entity.User) entity.User {
 	return user
 }
 
+func (db *userConnection) InsertToken(user entity.User) entity.User {
+
+	return user
+}
+
 func (db *userConnection) UpdateUser(user entity.User) entity.User {
 	if user.Password != "" {
 		user.Password = hashAndSalt([]byte(user.Password))
