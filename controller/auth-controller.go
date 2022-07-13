@@ -47,11 +47,15 @@ func (c *authController) Check(ctx *gin.Context) {
 	dbName := os.Getenv("DB_NAME")
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?charset=utf8&parseTime=True&loc=Local", dbUser, dbPass, dbHost, dbName)
-	_, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic("Failed to create a connection to database")
 	} else {
-		ctx.JSON(http.StatusOK, "GOOD")
+		mysqlDB, _ := db.DB()
+		mysqlDB.Ping()
+		status := mysqlDB.Stats()
+		response := helper.BuildResponse(true, "Database Status", status)
+		ctx.JSON(http.StatusOK, response)
 	}
 }
 
