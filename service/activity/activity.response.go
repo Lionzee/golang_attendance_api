@@ -13,10 +13,25 @@ type ActivityResponse struct {
 	CreatedAt   time.Time         `json:"created_at"`
 }
 
-func NewActivityLog(activity entity.Activity) ActivityResponse {
+func NewActivityResponse(activity entity.Activity) ActivityResponse {
 	return ActivityResponse{
-		ID:        activity.ID,
-		CreatedAt: activity.CreatedAt,
-		User:      user.NewUserResponse(activity.User),
+		ID:          activity.ID,
+		Description: activity.Description,
+		CreatedAt:   activity.CreatedAt,
+		User:        user.NewUserResponse(activity.User),
 	}
+}
+
+func NewActivityArrayResponse(activities []entity.Activity) []ActivityResponse {
+	activityRes := []ActivityResponse{}
+	for _, activity := range activities {
+		p := ActivityResponse{
+			ID:          activity.ID,
+			Description: activity.Description,
+			CreatedAt:   activity.CreatedAt,
+			User:        user.NewUserResponse(activity.User),
+		}
+		activityRes = append(activityRes, p)
+	}
+	return activityRes
 }

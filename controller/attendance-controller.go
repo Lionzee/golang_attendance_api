@@ -59,6 +59,11 @@ func (c *attendanceController) CheckOut(ctx *gin.Context) {
 	claims := token.Claims.(jwt.MapClaims)
 	userID := fmt.Sprintf("%v", claims["user_id"])
 
+	if c.attendanceService.IsCheckedOut(userID) {
+		response := helper.BuildErrorResponse("Failed to process request", "You are already Checked-out today", helper.EmptyObj{})
+		ctx.JSON(http.StatusConflict, response)
+	}
+
 	if !c.attendanceService.IsCheckedIn(userID) {
 		response := helper.BuildErrorResponse("Failed to process request", "You are not yet Checked-in", helper.EmptyObj{})
 		ctx.JSON(http.StatusConflict, response)

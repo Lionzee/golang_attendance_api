@@ -37,7 +37,7 @@ func (service *attendanceService) IsCheckedIn(userID string) bool {
 
 func (service *attendanceService) IsCheckedOut(userID string) bool {
 	res := service.attendanceRepo.IsCheckedOut(userID)
-	return !(res.Error == nil)
+	return res.Error == nil
 }
 
 func (service *attendanceService) CheckIn(userID string) (*attendance.AttendanceResponse, error) {
